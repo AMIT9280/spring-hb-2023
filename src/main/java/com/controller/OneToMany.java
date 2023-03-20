@@ -37,7 +37,7 @@ public class OneToMany {
 			return "AddRole";
 		}
 		
-		@GetMapping("AddUser")
+		@GetMapping("/AddUser")
 		public String addUser(Model model) {
 			List<RoleEntity> roles = roleRepo.findAll();
 			model.addAttribute("roles", roles);
