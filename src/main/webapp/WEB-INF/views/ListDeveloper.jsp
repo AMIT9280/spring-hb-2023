@@ -20,7 +20,8 @@
 			<td>${p.devName }</td>
 		 
 			<td><a href="/deleteDeveloper/${p.devId}">Delete</a></td>
-			<td><a href="/UpdateDeveloper/${p.devId}">Edit</a></td>
+			<td><a href="/UpdateDeveloper/${p.devId}">Edit</a> ${p.projects.size()} </td>
+			 
 		</tr>
 		</c:forEach>
 	</table>

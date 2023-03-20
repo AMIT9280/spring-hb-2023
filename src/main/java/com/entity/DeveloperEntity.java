@@ -23,7 +23,7 @@ public class DeveloperEntity {
 	
 
 	@ManyToMany(cascade = { CascadeType.ALL })
-	@JoinTable(name = "developerproject", 
+	@JoinTable(name = "developerprojects", 
 	joinColumns = { @JoinColumn(name = "devId") },
 	inverseJoinColumns = {@JoinColumn(name = "projectId") })
 	

@@ -36,7 +36,8 @@ public class ManyToMany {
 		return "AddProject";
 	}
 
-
+	//------------------------------------------------------ Project crud ---------------------------------------------
+	
 	@PostMapping("/saveproject")
 	public String saveProject(ProjectEntity project) {
 		proRepo.save(project);
@@ -75,7 +76,7 @@ public class ManyToMany {
 	
 	
 	
-//	Developer
+//-------------------------------------------------- Developer crud ------------------------------------------------------------
 	
 	@GetMapping("/addDev")
 	public String addDev() {
@@ -120,40 +121,27 @@ public class ManyToMany {
 		return "redirect:/developers"; 
 	} 
 	
-//	developer Project Join
+  //---------------------------------------------- Developer Project Join -----------------------------------------
 	
 	  
 	@GetMapping("/addDevPro")
-	public String addDevPro(Model model) {
-		
+	public String addDevPro(Model model) {	
 		List<DeveloperEntity> developers = devRepo.findAll();
 		List<ProjectEntity> projects = proRepo.findAll();
-		
 		model.addAttribute("developer", developers);
 		model.addAttribute("project", projects);
-		
 		return "AddDeveloperProject";
 	}
-
-
+	
 	@PostMapping("/savedeveloperproject")
 	public String saveDeveloperProject(DeveloperProjectEntity developerproject) {
-		 
 		devproRepo.save(developerproject);
-	 
 		return "redirect:/developerpros";
 	}
 	
 	@GetMapping("/developerpros")   
 	public String GetAlldeveloperpros(Model model) {
 		List<DeveloperProjectEntity> developerpros = devproRepo.findAll();
-	 
-		Optional<DeveloperEntity> d = devRepo.findById(29);	
-		DeveloperEntity ue = null;
-		if(d.isPresent()) {
-			ue = d.get();
-		} 
-		System.out.println(ue.getDevName());
 		model.addAttribute("developerpros", developerpros);
 		return "ListAllDevPro";
 	}
@@ -163,5 +151,25 @@ public class ManyToMany {
 		devproRepo.deleteById(devproId);
 		return "redirect:/developerpros";
 	}
+	
+	
+//	----------------------------------- get projects by developer -------------------------------------
+	
+	@GetMapping("/devprojects/{devId}")   
+	public String GetAlldevProjects(@PathVariable("devId")  Integer devId,Model model) {
+		Optional<DeveloperEntity> developerpros = devRepo.findById(devId); 
+		model.addAttribute("developer", developerpros.get());
+		return "ListMyProject";
+	} 
+	
+	//--------------------------------- get developer by project -------------------------------------
+	@GetMapping("/viewDev/{projectId}")   
+	public String GetAlldevlopers(@PathVariable("projectId")  Integer projectId,Model model) {
+		Optional<ProjectEntity> developerpros = proRepo.findById(projectId); 
+		model.addAttribute("project", developerpros.get());
+		return "ListMyDevlopers";
+	}
+	
+	
 	
 }
